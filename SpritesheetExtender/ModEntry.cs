@@ -25,7 +25,8 @@ namespace SpritesheetExtender
             if (Target == null)
             {
                 Monitor.Log("No available content packs found.", LogLevel.Debug);
-                Config = new ModConfig() {
+                Config = new ModConfig()
+                {
                     NumSpritesAddedMale = 0,
                     NumSpritesAddedFemale = 0
                 };
@@ -89,13 +90,9 @@ namespace SpritesheetExtender
                     newOffsets.Add(new int[] { 0, 0 });
                 }
                 Config.OffsetsMale = newOffsets.ToArray();
-                try
-                {
-                    Target?.WriteJsonFile("SSXConfig.json", Config);
-                }
-                finally {
-                    Monitor.Log($"No male offset pairs found. Added {Config.NumSpritesAddedMale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
-                }
+                Target?.WriteJsonFile("SSXConfig.json", Config);
+                Monitor.Log($"No male offset pairs found. Added {Config.NumSpritesAddedMale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
+
             }
             if (Config.OffsetsFemale.Length == 0 && Config.NumSpritesAddedFemale > 0)
             {
@@ -105,16 +102,13 @@ namespace SpritesheetExtender
                     newOffsets.Add(new int[] { 0, 0 });
                 }
                 Config.OffsetsFemale = newOffsets.ToArray();
-                try
-                {
-                    Target?.WriteJsonFile("SSXConfig.json", Config);
-                }
-                finally 
-                {
-                    Monitor.Log($"No female offset pairs found. Added {Config.NumSpritesAddedFemale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
-                }
+                Target?.WriteJsonFile("SSXConfig.json", Config);
+                Monitor.Log($"No female offset pairs found. Added {Config.NumSpritesAddedFemale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
+
             }
-            AddSpriteIndex();
+            if (Config.NumSpritesAddedMale > 0 || Config.NumSpritesAddedFemale > 0) {
+                AddSpriteIndex();
+            }
         }
 
         private void AddSpriteIndex()
@@ -220,7 +214,7 @@ namespace SpritesheetExtender
                 if (mod.IsContentPack && mod.Manifest.Dependencies.Any((d) => d.UniqueID == "mooseybrutale.spriteextender") && Helper.ModRegistry.IsLoaded(mod.Manifest.UniqueID))
                 {
 
-                    Target = (IContentPack)mod.GetType().GetProperty("ContentPack").GetValue((object) mod);
+                    Target = (IContentPack)mod.GetType().GetProperty("ContentPack").GetValue((object)mod);
                 }
             }
         }
