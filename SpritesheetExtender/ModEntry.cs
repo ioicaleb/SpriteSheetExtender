@@ -25,6 +25,10 @@ namespace SpritesheetExtender
             if (Target == null)
             {
                 Monitor.Log("No available content packs found.", LogLevel.Debug);
+                Config = new ModConfig() {
+                    NumSpritesAddedMale = 0,
+                    NumSpritesAddedFemale = 0
+                };
             }
             else
             {
@@ -85,8 +89,13 @@ namespace SpritesheetExtender
                     newOffsets.Add(new int[] { 0, 0 });
                 }
                 Config.OffsetsMale = newOffsets.ToArray();
-                Target?.WriteJsonFile("SSXConfig.json", Config);
-                Monitor.Log($"No male offset pairs found. Added {Config.NumSpritesAddedMale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
+                try
+                {
+                    Target?.WriteJsonFile("SSXConfig.json", Config);
+                }
+                finally {
+                    Monitor.Log($"No male offset pairs found. Added {Config.NumSpritesAddedMale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
+                }
             }
             if (Config.OffsetsFemale.Length == 0 && Config.NumSpritesAddedFemale > 0)
             {
@@ -96,8 +105,14 @@ namespace SpritesheetExtender
                     newOffsets.Add(new int[] { 0, 0 });
                 }
                 Config.OffsetsFemale = newOffsets.ToArray();
-                Target?.WriteJsonFile("SSXConfig.json", Config);
-                Monitor.Log($"No female offset pairs found. Added {Config.NumSpritesAddedFemale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
+                try
+                {
+                    Target?.WriteJsonFile("SSXConfig.json", Config);
+                }
+                finally 
+                {
+                    Monitor.Log($"No female offset pairs found. Added {Config.NumSpritesAddedFemale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
+                }
             }
             AddSpriteIndex();
         }
