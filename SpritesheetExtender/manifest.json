@@ -1,7 +1,7 @@
 {
   "Name": "Sprite Sheet Extender",
   "Author": "MooseyBrutale",
-  "Version": "1.1",
+  "Version": "1.2",
   "Description": "Extends parameters to add more sprites to farmer sprite sheet",
   "UniqueID": "mooseybrutale.spriteextender",
   "UpdateKeys": [
