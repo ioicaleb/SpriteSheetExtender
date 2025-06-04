@@ -1,5 +1,7 @@
 --Set Up--
 
+These instructions are only intended for mod creators using this mod to add sprites to the farmer spritesheet. If you downloaded this mod as part of another mod, disregard these instructions.
+
 -Open your mod folder
 -Open manifest.json
 -Add to dependencies : 

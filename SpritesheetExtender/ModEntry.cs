@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Extensions;
 
 namespace SpritesheetExtender
 {
@@ -35,6 +36,7 @@ namespace SpritesheetExtender
             {
                 SetConfig();
             }
+            Event.RegisterCommand("createTemporaryFarmer", CreateTemporaryFarmer);
         }
 
         private void GameLoop_GameLaunched(object? sender, GameLaunchedEventArgs e)
@@ -232,6 +234,16 @@ namespace SpritesheetExtender
             {
                 Monitor.Log($"Loaded config file from {Target.Manifest.Name}.", LogLevel.Debug);
             }
+        }
+
+        private void CreateTemporaryFarmer(Event @event, string[] args, EventContext context) 
+        {
+            string sheet = args[1];
+            Farmer player = @event.farmer;
+            Farmer farmer = new Farmer(new FarmerSprite("Characters\\Farmer\\" + sheet), player.Position, player.Speed, player.Name, null, isMale: player.Gender == Gender.Male);
+            @event.farmerActors.Add(farmer);
+            @event.CurrentCommand++;
+            throw new NotImplementedException();
         }
     }
 }
