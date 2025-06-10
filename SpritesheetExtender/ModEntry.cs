@@ -108,7 +108,8 @@ namespace SpritesheetExtender
                 Monitor.Log($"No female offset pairs found. Added {Config.NumSpritesAddedFemale} offset pairs to config file. Set offset in-game using setframeoffset command.", LogLevel.Debug);
 
             }
-            if (Config.NumSpritesAddedMale > 0 || Config.NumSpritesAddedFemale > 0) {
+            if (Config.NumSpritesAddedMale > 0 || Config.NumSpritesAddedFemale > 0)
+            {
                 AddSpriteIndex();
             }
         }
@@ -236,14 +237,25 @@ namespace SpritesheetExtender
             }
         }
 
-        private void CreateTemporaryFarmer(Event @event, string[] args, EventContext context) 
+        private void CreateTemporaryFarmer(Event @event, string[] args, EventContext context)
         {
             string sheet = args[1];
+            Monitor.Log($"Looking for {sheet}", LogLevel.Trace);
             Farmer player = @event.farmer;
-            Farmer farmer = new Farmer(new FarmerSprite("Characters\\Farmer\\" + sheet), player.Position, player.Speed, player.Name, null, isMale: player.Gender == Gender.Male);
-            @event.farmerActors.Add(farmer);
-            @event.CurrentCommand++;
-            throw new NotImplementedException();
+            Monitor.Log(player.Name, LogLevel.Trace);
+            Monitor.Log($"Characters Exist: {File.Exists("Characters")}", LogLevel.Trace);
+            Monitor.Log($"Farmers Exist: {File.Exists("Characters\\Farmer")}", LogLevel.Trace);
+            if (File.Exists("Characters\\Farmer\\farmer_" + sheet))
+            {
+                Farmer farmer = new(new FarmerSprite("Characters\\Farmer\\farmer_" + sheet), player.Position, player.Speed, player.Name, null, isMale: player.Gender == Gender.Male);
+                Monitor.Log($"Created {farmer.Name}.", LogLevel.Trace);
+                @event.farmerActors.Add(farmer);
+                @event.CurrentCommand++;
+            }
+            else 
+            {
+                Monitor.Log($"No spritesheet with name \'farmer_{sheet}\' exists.", LogLevel.Error);
+            }
         }
     }
 }
