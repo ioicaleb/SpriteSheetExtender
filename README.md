@@ -1,7 +1,7 @@
-# SpriteSheetExtender / FarmerYoga
+# SpriteSheetExtender
 ### A C# / .NET Game Modding Utility for Stardew Valley (SMAPI)
 
-An open-source game modification and asset tool built with **C#** and the **SMAPI** (Stardew Valley Modding API) ecosystem. This utility injects custom texture sheets and replaces internal game assets dynamically at runtime, allowing players and artists to extend asset definitions without altering native game files.
+An open-source game modification and asset tool built with **C#** and the **SMAPI** (Stardew Valley Modding API) ecosystem. This utility extends the limit of sprite indices for player characters.
 
 ## Key Architectural Features
 * **Asset Lifecycle Hooks:** Intercepts and overrides the native XNB asset pipeline using SMAPI’s asset loading protocols to smoothly swap sprites on the fly.
